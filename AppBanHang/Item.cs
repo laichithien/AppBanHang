@@ -15,6 +15,8 @@ namespace AppBanHang
     internal class Item:Panel
     {
         int size = 256;
+        public Button bt;
+        public bool isClicked = false;
         public Item(string id, string nameOfItem, long priceOfItem)
         {
             this.Size = new Size(size, size+(size/4));
@@ -32,11 +34,12 @@ namespace AppBanHang
             itemName.Location = new Point(0, size);
             itemName.BackColor = Color.DimGray;
 
-            Button bt = new Button();
+            bt = new Button();
             bt.Text = "Xem thêm";
             bt.Size = new Size(size/4, size / 8);
             bt.Location = new Point(size/2 + size / 4 - size/16, size / 8 - size / 16);
             bt.BackColor = Color.LightGray;
+            bt.Name = id;
             itemName.Controls.Add(bt);
 
             Label name = new Label();
@@ -45,6 +48,7 @@ namespace AppBanHang
             name.Font = new Font("Arial", 10, FontStyle.Bold);
             name.Size = new Size(size / 2 + size / 16, size / 8 - size / 16);
             name.ForeColor = Color.LightGray;
+            name.AutoSize= false;
             itemName.Controls.Add(name);
 
             Label price = new Label();
@@ -59,6 +63,5 @@ namespace AppBanHang
             this.Controls.Add(itemName);
             this.Controls.Add(pb);
         }
-
     }
 }

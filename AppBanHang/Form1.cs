@@ -17,7 +17,9 @@ namespace AppBanHang
     {
         public string prevStateList = "";
         public string stateList = "PI";
+        public string mode = "List";
         static DataTable NHACCU;
+        public ProductDetail pd;
         public SellingStuff()
         {
             InitializeComponent();
@@ -36,6 +38,7 @@ namespace AppBanHang
         }
         public void loadFlowLayoutPanel()
         {
+            flowLayoutPanel1.Enabled = true;
             flowLayoutPanel1.Controls.Clear();
             for (int i = 0; i < NHACCU.Rows.Count; i++)
             {
@@ -45,8 +48,41 @@ namespace AppBanHang
                 long price = Convert.ToInt64(NHACCU.Rows[i]["GIABAN"]);
 
                 Item it = new Item(id, name, price);
+                it.bt.Click += new EventHandler(Item_Clicked);
                 flowLayoutPanel1.Controls.Add(it);
             }
+        }
+        public void loadSearch(DataTable searchData)
+        {
+            flowLayoutPanel1.Enabled = true;
+            flowLayoutPanel1.Controls.Clear();
+            for (int i = 0; i < searchData.Rows.Count; i++)
+            {
+                string id = searchData.Rows[i]["MANHACCU"].ToString();
+                id = id.Replace(" ", "");
+                string name = searchData.Rows[i]["TENSP"].ToString();
+                long price = Convert.ToInt64(searchData.Rows[i]["GIABAN"]);
+
+                Item it = new Item(id, name, price);
+                it.bt.Click += new EventHandler(Item_Clicked);
+                flowLayoutPanel1.Controls.Add(it);
+            }
+            if (searchData.Rows.Count == 0)
+            {
+                Label mess = new Label();
+                mess.Text = "Sản phẩm bạn cần tìm hiện không có :((";
+                mess.Location = new Point(flowLayoutPanel1.Size.Width / 2, flowLayoutPanel1.Size.Height / 2);
+                mess.AutoSize = true;
+                mess.Font = new Font("Microsoft Sans Serif", 30, FontStyle.Bold);
+                flowLayoutPanel1.Controls.Add(mess);
+            }
+        }
+        public void Item_Clicked(object sender, EventArgs a)
+        {
+            Button bt = (Button)sender;
+            pd = new ProductDetail(bt.Name);
+            this.Controls.Add(pd);
+            flowLayoutPanel1.Hide();
         }
         private void Loading()
         {
@@ -54,20 +90,22 @@ namespace AppBanHang
             Data_Provider provider = new Data_Provider();
             NHACCU = provider.ExecuteQuery(query);
             //dataGridView1.DataSource = provider.ExecuteQuery(query);
-
         }
-
-        private void guitarButton_Click(object sender, EventArgs e)
+        private DataTable Search(string keywords)
         {
-            prevStateList = stateList;
-            stateList = "GU";
-            Loading();
-            setMenu();
-            loadFlowLayoutPanel();
+            string query = "select * from NHACCU where TENSP like '%"+keywords+"%'";
+            Data_Provider provider = new Data_Provider();
+            DataTable search = provider.ExecuteQuery(query);
+            //dataGridView1.DataSource = provider.ExecuteQuery(query);
+            return search;
         }
-
         private void VIButton_Click(object sender, EventArgs e)
         {
+            if (pd != null)
+            {
+                pd.Hide();
+            }
+            flowLayoutPanel1.Show();
             prevStateList = stateList;
             stateList = "VI";
             Loading();
@@ -77,6 +115,11 @@ namespace AppBanHang
 
         private void TRButton_Click(object sender, EventArgs e)
         {
+            if (pd != null)
+            {
+                pd.Hide();
+            }
+            flowLayoutPanel1.Show();
             prevStateList = stateList;
             stateList = "TR";
             Loading();
@@ -86,6 +129,11 @@ namespace AppBanHang
 
         private void DRButton_Click(object sender, EventArgs e)
         {
+            if (pd != null)
+            {
+                pd.Hide();
+            }
+            flowLayoutPanel1.Show();
             prevStateList = stateList;
             stateList = "DR";
             Loading();
@@ -95,6 +143,11 @@ namespace AppBanHang
 
         private void PIButton_Click(object sender, EventArgs e)
         {
+            if (pd != null)
+            {
+                pd.Hide();
+            }
+            flowLayoutPanel1.Show();
             prevStateList = stateList;
             stateList = "PI";
             Loading();
@@ -104,6 +157,11 @@ namespace AppBanHang
 
         private void CAButton_Click(object sender, EventArgs e)
         {
+            if (pd != null)
+            {
+                pd.Hide();
+            }
+            flowLayoutPanel1.Show();
             prevStateList = stateList;
             stateList = "CA";
             Loading();
@@ -113,6 +171,11 @@ namespace AppBanHang
 
         private void UKButton_Click(object sender, EventArgs e)
         {
+            if (pd != null)
+            {
+                pd.Hide();
+            }
+            flowLayoutPanel1.Show();
             prevStateList = stateList;
             stateList = "UK";
             Loading();
@@ -122,11 +185,21 @@ namespace AppBanHang
 
         private void GUButton_Click(object sender, EventArgs e)
         {
+            if (pd != null)
+            {
+                pd.Hide();
+            }
+            flowLayoutPanel1.Show();
             prevStateList = stateList;
             stateList = "GU";
             Loading();
             setMenu();
             loadFlowLayoutPanel();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            loadSearch(Search(searchField.Text));
         }
     }
 }

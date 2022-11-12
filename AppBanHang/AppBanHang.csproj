@@ -67,6 +67,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NHACCU.resx</DependentUpon>
     </Compile>
+    <Compile Include="ShoppingCart.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ShoppingCartItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -179,6 +185,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\GU010.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UK004.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UK005.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UK006.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UK007.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UK001.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UK002.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UK003.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

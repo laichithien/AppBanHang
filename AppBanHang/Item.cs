@@ -12,16 +12,15 @@ using System.Runtime.CompilerServices;
 
 namespace AppBanHang
 {
-    internal class Item:Panel
+    internal class Item : Panel
     {
-        int size = 256;
+        int size = 246;
         public Button bt;
         public bool isClicked = false;
         public Item(string id, string nameOfItem, long priceOfItem)
         {
             this.Size = new Size(size, size+(size/4));
             this.BackColor = Color.White;
-
             Bitmap bm1 = (Bitmap)NHACCU.ResourceManager.GetObject(id);
             
             PictureBox pb = new PictureBox();
@@ -36,8 +35,8 @@ namespace AppBanHang
 
             bt = new Button();
             bt.Text = "Xem thêm";
-            bt.Size = new Size(size/4, size / 8);
-            bt.Location = new Point(size/2 + size / 4 - size/16, size / 8 - size / 16);
+            bt.Size = new Size(size/4 + size/ 8, size / 8);
+            bt.Location = new Point(size/2 + size / 4 - size/8 - size/16, size / 8 - size / 16);
             bt.BackColor = Color.LightGray;
             bt.Name = id;
             itemName.Controls.Add(bt);
@@ -48,7 +47,7 @@ namespace AppBanHang
             name.Font = new Font("Arial", 10, FontStyle.Bold);
             name.Size = new Size(size / 2 + size / 16, size / 8 - size / 16);
             name.ForeColor = Color.LightGray;
-            name.AutoSize= false;
+            name.AutoSize = false;
             itemName.Controls.Add(name);
 
             Label price = new Label();

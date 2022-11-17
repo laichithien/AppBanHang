@@ -25,6 +25,8 @@ namespace AppBanHang
         public static DataTable GIOHANG;
         public ProductDetail pd;
         public ShoppingCart shoppingCartPanel;
+        static int sohoadon;
+        public History history;
         public SellingStuff()
         {
             InitializeComponent();
@@ -33,6 +35,8 @@ namespace AppBanHang
             GIOHANG.Columns.Add("Amount", typeof(Int32));
             GIOHANG.Columns.Add("Gia", typeof(Int32));
             GIOHANG.Columns.Add("Ten", typeof(String));
+            Data_Provider data_Provider = new Data_Provider();
+            sohoadon = (int)data_Provider.ExecuteScalar("select count(MAHOADON) from HOADON");
             reload();
         }
         public void Item_Clicked(object sender, EventArgs a)
@@ -42,11 +46,50 @@ namespace AppBanHang
             this.Controls.Add(pd);
             flowLayoutPanel1.Hide();
             panel2.Hide();
+            if (shoppingCartPanel != null)
+            {
+                shoppingCartPanel.Hide();
+            }
+            if (history != null)
+            {
+                history.Hide();
+            }
             pd.addToCart.Click += new EventHandler(addProdToCart);
+            pd.back.Click += new EventHandler(back);
+        }
+        private void back(object sender, EventArgs e)
+        {
+            if (pd != null)
+            {
+                pd.Hide();
+            }
+            if (shoppingCartPanel != null)
+            {
+                shoppingCartPanel.Hide();
+            }
+            if (history != null)
+            {
+                history.Hide();
+            }
+            panel5.Show();
+            panel2.Show();
+            flowLayoutPanel1.Show();
         }
         private void addProdToCart(object sender, EventArgs a)
         {
             GIOHANG.Rows.Add(pd.ID, pd.amount, pd.price, pd.Tensp);
+            if (pd != null)
+            {
+                pd.Hide();
+            }
+            if (shoppingCartPanel != null)
+            {
+                shoppingCartPanel.Hide();
+            }
+            MessageBox.Show("Đã thành công thêm vào giỏ hàng!");
+            panel5.Show();
+            panel2.Show();
+            flowLayoutPanel1.Show();
         }
         private void loadResultFromQuery(string query)
         {
@@ -247,11 +290,11 @@ namespace AppBanHang
         {
             Search();
         }
-
         private void shoppingCartButton_Click(object sender, EventArgs e)
         {
             shoppingCartPanel = new ShoppingCart(GIOHANG);
             shoppingCartPanel.buy.Click += new EventHandler(buy);
+            shoppingCartPanel.back.Click += new EventHandler(back);
             flowLayoutPanel1.Hide();
             panel2.Hide();
             panel5.Hide();
@@ -259,17 +302,115 @@ namespace AppBanHang
             {
                 pd.Hide();
             }
+            if (history != null)
+            {
+                history.Hide();
+            }
             this.Controls.Add(shoppingCartPanel);
             shoppingCartPanel.Show();
         }
         private void buy(object sender, EventArgs e)
         {
-            string lastid = "";
+            DataTable hoadon = new DataTable();
+            hoadon.Columns.Add("ID", typeof(string));
+            hoadon.Columns.Add("Name", typeof(string));
+            hoadon.Columns.Add("Price", typeof(Int32));
+            hoadon.Columns.Add("Discount", typeof(Int32));
+            hoadon.Columns.Add("Amount", typeof(Int16));
+            Data_Provider data_Provider = new Data_Provider();
+            sohoadon += 1;
+            string MAHOADON = "HD"+ (sohoadon).ToString("D3");
+            string query;
+            int tongtien = 0;
+            bool isEmpty = true;
             foreach (var item in shoppingCartPanel.shoppingList.Controls.OfType<ShoppingCartItem>().OrderBy(ee => ee.TabIndex))
             {
-                lastid = item.amount.ToString();
+                //lastid = item.amount.ToString();
+                if (item.isSelected)
+                {
+                    isEmpty = false;
+                    query = "INSERT INTO CHITIET_HOADON(MAHOADON, MANHACCU, TENNHACCU, DONGIA, DISCOUNT, SOTIEN) VALUES ";
+                    query += ("('" + MAHOADON + "','"+item.id.ToString().Trim()+"','"+item.name+"',"+item.gia+","+0+","+item.sotien+")");
+                    hoadon.Rows.Add(MAHOADON, item.name, item.gia, 0, item.amount);
+                    data_Provider.ExecuteNonQuery(query);
+                    tongtien += item.sotien;
+                }   
             }
-            MessageBox.Show(lastid);
+            if (!isEmpty)
+            {
+                query = "INSERT INTO HOADON(MAHOADON, NGAYMUA, TONGTIEN) VALUES ";
+                query += ("('" + MAHOADON + "','" + DateTime.Now.ToString() + "'," + tongtien + ")");
+                data_Provider.ExecuteNonQuery(query);
+            }
+            else sohoadon--;
+           
+            if (pd != null)
+            {
+                pd.Hide();
+            }
+            if (shoppingCartPanel != null)
+            {
+                shoppingCartPanel.Controls.Clear();
+                shoppingCartPanel.Hide();
+            }
+            if (history != null)
+            {
+                history.Hide();
+            }
+            BillForm bf = new BillForm(hoadon, DateTime.Now.ToString(), MAHOADON, tongtien.ToString("N0"));
+            bf.Show();
+            GIOHANG.Clear();
+            panel5.Show();
+            panel2.Show();
+            flowLayoutPanel1.Show();
+        }
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            string query = "select * from HOADON";
+            Data_Provider dp = new Data_Provider();
+            DataTable dt_bills = dp.ExecuteQuery(query);
+            history = new History(dt_bills);
+            history.back.Click += new EventHandler(back);
+            flowLayoutPanel1.Hide();
+            panel2.Hide();
+            panel5.Hide();
+            if (pd != null)
+            {
+                pd.Hide();
+            }
+            if (shoppingCartPanel != null)
+            {
+                shoppingCartPanel.Hide();
+            }
+            this.Controls.Add(history);
+            history.Show();
+        }
+
+        private void searchField_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                Search();
+            }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            if (pd != null)
+            {
+                pd.Hide();
+            }
+            if (shoppingCartPanel != null)
+            {
+                shoppingCartPanel.Hide();
+            }
+            if (history != null)
+            {
+                history.Hide();
+            }
+            panel5.Show();
+            panel2.Show();
+            flowLayoutPanel1.Show();
         }
     }
 }

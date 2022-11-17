@@ -44,7 +44,7 @@ namespace AppBanHang.DAO
             SqlConnection connection = new SqlConnection(StringConnection);
             connection.Open();
             SqlCommand command = new SqlCommand(query, connection);
-            data = command.ExecuteScalar();
+            data = (int)command.ExecuteScalar();
             connection.Close();
             return data;
         }

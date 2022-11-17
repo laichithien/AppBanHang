@@ -67,6 +67,7 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.DarkCyan;
             this.panel1.Controls.Add(this.panel3);
+            this.panel1.Cursor = System.Windows.Forms.Cursors.Default;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -83,6 +84,7 @@
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.locationOption);
             this.panel3.Controls.Add(this.pictureBox1);
+            this.panel3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.panel3.Location = new System.Drawing.Point(76, 0);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1236, 88);
@@ -92,16 +94,19 @@
             // 
             this.pictureBox3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox3.BackgroundImage")));
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox3.Location = new System.Drawing.Point(1115, 21);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(48, 48);
             this.pictureBox3.TabIndex = 3;
             this.pictureBox3.TabStop = false;
+            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
             // shoppingCartButton
             // 
             this.shoppingCartButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("shoppingCartButton.BackgroundImage")));
             this.shoppingCartButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.shoppingCartButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.shoppingCartButton.Location = new System.Drawing.Point(1186, 21);
             this.shoppingCartButton.Name = "shoppingCartButton";
             this.shoppingCartButton.Size = new System.Drawing.Size(48, 48);
@@ -114,6 +119,7 @@
             this.searchButton.BackColor = System.Drawing.Color.Transparent;
             this.searchButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("searchButton.BackgroundImage")));
             this.searchButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.searchButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.searchButton.Location = new System.Drawing.Point(1045, 21);
             this.searchButton.Name = "searchButton";
             this.searchButton.Size = new System.Drawing.Size(48, 48);
@@ -123,6 +129,7 @@
             // 
             // searchField
             // 
+            this.searchField.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.searchField.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.searchField.Location = new System.Drawing.Point(359, 21);
             this.searchField.Multiline = false;
@@ -130,10 +137,12 @@
             this.searchField.Size = new System.Drawing.Size(680, 46);
             this.searchField.TabIndex = 5;
             this.searchField.Text = "";
+            this.searchField.KeyDown += new System.Windows.Forms.KeyEventHandler(this.searchField_KeyDown);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label1.Location = new System.Drawing.Point(162, 19);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(136, 16);
@@ -142,6 +151,7 @@
             // 
             // locationOption
             // 
+            this.locationOption.Cursor = System.Windows.Forms.Cursors.Hand;
             this.locationOption.FormattingEnabled = true;
             this.locationOption.Items.AddRange(new object[] {
             "Sóc Trăng",
@@ -166,11 +176,13 @@
             // 
             this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox1.Location = new System.Drawing.Point(0, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(156, 68);
             this.pictureBox1.TabIndex = 8;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // panel5
             // 
@@ -182,6 +194,7 @@
             this.panel5.Controls.Add(this.CAButton);
             this.panel5.Controls.Add(this.UKButton);
             this.panel5.Controls.Add(this.GUButton);
+            this.panel5.Cursor = System.Windows.Forms.Cursors.Default;
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel5.Location = new System.Drawing.Point(0, 88);
             this.panel5.Name = "panel5";
@@ -192,6 +205,7 @@
             // 
             this.VIButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.VIButton.AutoSize = true;
+            this.VIButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.VIButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VIButton.Location = new System.Drawing.Point(958, 15);
             this.VIButton.Name = "VIButton";
@@ -205,6 +219,7 @@
             // 
             this.TRButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.TRButton.AutoSize = true;
+            this.TRButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TRButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TRButton.Location = new System.Drawing.Point(828, 15);
             this.TRButton.Name = "TRButton";
@@ -218,6 +233,7 @@
             // 
             this.DRButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.DRButton.AutoSize = true;
+            this.DRButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DRButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DRButton.Location = new System.Drawing.Point(735, 15);
             this.DRButton.Name = "DRButton";
@@ -231,6 +247,7 @@
             // 
             this.PIButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.PIButton.AutoSize = true;
+            this.PIButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.PIButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PIButton.Location = new System.Drawing.Point(640, 15);
             this.PIButton.Name = "PIButton";
@@ -244,6 +261,7 @@
             // 
             this.CAButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.CAButton.AutoSize = true;
+            this.CAButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.CAButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CAButton.Location = new System.Drawing.Point(539, 15);
             this.CAButton.Name = "CAButton";
@@ -257,6 +275,7 @@
             // 
             this.UKButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.UKButton.AutoSize = true;
+            this.UKButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.UKButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UKButton.Location = new System.Drawing.Point(420, 15);
             this.UKButton.Name = "UKButton";
@@ -270,6 +289,7 @@
             // 
             this.GUButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.GUButton.AutoSize = true;
+            this.GUButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.GUButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GUButton.Location = new System.Drawing.Point(319, 15);
             this.GUButton.Name = "GUButton";
@@ -282,6 +302,7 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Cursor = System.Windows.Forms.Cursors.Default;
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 217);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -296,6 +317,7 @@
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.hangFilter);
             this.panel2.Controls.Add(this.label2);
+            this.panel2.Cursor = System.Windows.Forms.Cursors.Default;
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel2.Location = new System.Drawing.Point(0, 148);
@@ -305,6 +327,7 @@
             // 
             // activateFilterButton
             // 
+            this.activateFilterButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.activateFilterButton.Location = new System.Drawing.Point(494, 16);
             this.activateFilterButton.Name = "activateFilterButton";
             this.activateFilterButton.Size = new System.Drawing.Size(85, 40);
@@ -316,6 +339,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(320, 16);
             this.label4.Name = "label4";
@@ -325,6 +349,7 @@
             // 
             // giaFilter
             // 
+            this.giaFilter.Cursor = System.Windows.Forms.Cursors.Hand;
             this.giaFilter.FormattingEnabled = true;
             this.giaFilter.Location = new System.Drawing.Point(324, 39);
             this.giaFilter.Name = "giaFilter";
@@ -334,6 +359,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(128, 16);
             this.label3.Name = "label3";
@@ -343,6 +369,7 @@
             // 
             // hangFilter
             // 
+            this.hangFilter.Cursor = System.Windows.Forms.Cursors.Hand;
             this.hangFilter.FormattingEnabled = true;
             this.hangFilter.Location = new System.Drawing.Point(132, 39);
             this.hangFilter.Name = "hangFilter";
@@ -352,6 +379,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(34, 23);
             this.label2.Name = "label2";

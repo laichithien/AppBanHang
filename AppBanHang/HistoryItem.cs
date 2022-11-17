@@ -9,7 +9,7 @@ using AppBanHang.Resources;
 
 namespace AppBanHang
 {
-    internal class ShoppingCartItem : Panel
+    internal class HistoryItem : Panel
     {
         Label amountNum;
         public int amount;
@@ -17,11 +17,11 @@ namespace AppBanHang
         public Label deleteButton;
         public string id;
         public string name;
-        public bool isSelected = true;
+        public bool isSelected = false;
         public int gia;
         public int sotien;
         CheckBox cb;
-        public ShoppingCartItem(string id, string name, int gia, int amount)
+        public HistoryItem(string id, string name, int gia, int amount)
         {
             this.id = id.Trim();
             this.amount = amount;
@@ -34,8 +34,7 @@ namespace AppBanHang
             cb.Location = new Point(0, this.Height / 2 - 10);
             cb.BackColor = Color.White;
             cb.Width = 20;
-            cb.Name = id+"_isSelected";
-            cb.Checked = true;
+            cb.Name = id + "_isSelected";
             cb.CheckedChanged += new EventHandler(checkedChange);
 
             PictureBox pb = new PictureBox();
@@ -70,9 +69,11 @@ namespace AppBanHang
             amountNum = new Label();
             amountNum.Text = amount.ToString();
             amountNum.Size = new Size(25, 25);
-            amountNum.Location = new Point(370 + 29, this.Height / 2 - 4);
+            amountNum.Location = new Point(370 + 29, this.Height / 2-8);
             amountNum.BackColor = Color.White;
             amountNum.TextAlign = ContentAlignment.MiddleCenter;
+            amountNum.Font = new Font("Arial", 14, FontStyle.Bold);
+            amountNum.AutoSize = true;
 
             Button plusButton = new Button();
             plusButton.Text = "+";
@@ -90,22 +91,15 @@ namespace AppBanHang
             totalPrice.AutoSize = true;
             totalPrice.Font = new Font("Arial", 12, FontStyle.Bold);
 
-            deleteButton = new Label();
-            deleteButton.Text = "Xoá";
-            deleteButton.Location = new Point(650, this.Height / 2 - 5);
-            deleteButton.AutoSize = true;
-            deleteButton.Font = new Font("Arial", 12, FontStyle.Bold);
-            deleteButton.Name = this.id.Trim();
-
-            this.Controls.Add(cb);
+            //this.Controls.Add(cb);
             this.Controls.Add(pb);
             this.Controls.Add(prodName);
             this.Controls.Add(donGia);
-            this.Controls.Add(minusButton);
-            this.Controls.Add(plusButton);
+            //this.Controls.Add(minusButton);
+            //this.Controls.Add(plusButton);
             this.Controls.Add(amountNum);
             this.Controls.Add(totalPrice);
-            this.Controls.Add(deleteButton);
+            //this.Controls.Add(deleteButton);
         }
         public void modAmount(object sender, EventArgs e)
         {

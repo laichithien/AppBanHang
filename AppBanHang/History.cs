@@ -1,19 +1,21 @@
-﻿using System;
+﻿using AppBanHang.DAO;
+using System;
 using System.Data;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace AppBanHang
 {
-    public class ShoppingCart : Panel
+    public class History : Panel
     {
         public Panel title;
-        public FlowLayoutPanel shoppingList;
-        public DataTable dt;
+        public FlowLayoutPanel prodList;
+        public DataTable dt_bills;
         public Button buy;
         public Label back;
         public Panel Summary;
-        public ShoppingCart(DataTable dt)
+        public History(DataTable dt)
         {
             back = new Label();
             back.AutoSize = true;
@@ -22,15 +24,11 @@ namespace AppBanHang
             back.Dock = DockStyle.Right;
 
             this.Controls.Add(back);
-
+            //-------------------------title---------------------------//
             title = new Panel();
             title.Dock = DockStyle.Top;
             title.Height = 50;
             title.Width = 1000;
-
-            CheckBox checkBox = new CheckBox();
-            checkBox.Location = new Point(0, 15);
-            checkBox.Size = new Size(15, 15);
 
             Label prodCol = new Label();
             prodCol.Text = "Tất cả";
@@ -72,19 +70,19 @@ namespace AppBanHang
             title.Controls.Add(priceCol);
             title.Controls.Add(amount);
             title.Controls.Add(totalPrice);
-            title.Controls.Add(manipulation);
-            title.Controls.Add(buy);
+            //title.Controls.Add(manipulation);
+            //title.Controls.Add(buy);
+            //-------------------------title---------------------------//
 
-
-            shoppingList = new FlowLayoutPanel();
-            shoppingList.AutoScroll = true;
-            shoppingList.Size = new Size(1000, 450);
-            shoppingList.Location = new Point(0, 60);
+            prodList = new FlowLayoutPanel();
+            prodList.AutoScroll = true;
+            prodList.Size = new Size(1000, 450);
+            prodList.Location = new Point(0, 60);
 
             this.Size = new Size(1000, 653);
             this.Location = new Point(25, 90);
             this.Anchor = AnchorStyles.None;
-            this.dt = dt;
+            this.dt_bills = dt;
             //this.BackColor = Color.Aqua;
 
             this.Controls.Add(title);
@@ -100,25 +98,49 @@ namespace AppBanHang
         }
         public void loadShoppingCartItems()
         {
-            this.Controls.Add(shoppingList);
-            for (int i = 0; i < dt.Rows.Count; i++)
+            this.Controls.Add(prodList);
+            for (int i = 0; i < dt_bills.Rows.Count; i++)
             {
-                string id = dt.Rows[i]["ID"].ToString();
-                int amount = Convert.ToInt32(dt.Rows[i]["Amount"]);
-                int gia = Convert.ToInt32(dt.Rows[i]["Gia"]);
-                string name = dt.Rows[i]["Ten"].ToString();
-                ShoppingCartItem it = new ShoppingCartItem(id, name, gia, amount);
-                it.Name = id.Trim();
-                it.deleteButton.Click += new EventHandler(delete);
-                shoppingList.Controls.Add(it);
+                string id = dt_bills.Rows[i]["MAHOADON"].ToString();
+                string date = dt_bills.Rows[i]["NGAYMUA"].ToString();
+                string tongtien = dt_bills.Rows[i]["TONGTIEN"].ToString();
+                string query = "select * from CHITIET_HOADON where MAHOADON like '%"+id+"%'";
+                Label lb = new Label();
+                lb.Text = "Mã hoá đơn: " + id + "                                                                                                             Ngày mua: " + date;
+                lb.AutoSize = true;
+                lb.Font = new Font("Arial", 12, FontStyle.Bold);
+                lb.Height = 30;
+
+                prodList.Controls.Add(lb);
+                Data_Provider dp = new Data_Provider();
+                DataTable temp = dp.ExecuteQuery(query);
+
+                FlowLayoutPanel panel = new FlowLayoutPanel();
+                panel.AutoSize = true;
+                panel.BorderStyle = BorderStyle.FixedSingle;
+                for (int j = 0; j < temp.Rows.Count; j++)
+                {
+                    string idnhaccu = temp.Rows[j]["MANHACCU"].ToString();
+                    string name = temp.Rows[j]["TENNHACCU"].ToString();
+                    int gia = Convert.ToInt32(temp.Rows[j]["DONGIA"]);
+                    int amount = (Convert.ToInt32(temp.Rows[j]["SOTIEN"])/Convert.ToInt32(gia));
+                    HistoryItem it = new HistoryItem(idnhaccu, name, gia, amount);
+                    it.Name = idnhaccu.Trim();
+                    panel.Controls.Add(it);
+                }
+                prodList.Controls.Add(panel);   
+                //ShoppingCartItem it = new ShoppingCartItem(id, name, gia, amount);
+                //it.Name = id.Trim();
+                //it.deleteButton.Click += new EventHandler(delete);
+                //prodList.Controls.Add(it);
             }
 
         }
-        public void delete(object sender, EventArgs e)
-        {
-            Label button = (Label)sender;
-            this.shoppingList.Controls[button.Name].Dispose();
-        }
+        //public void delete(object sender, EventArgs e)
+        //{
+        //    Label button = (Label)sender;
+        //    this.shoppingList.Controls[button.Name].Dispose();
+        //}
         public void loadSummary()
         {
             Summary = new Panel();
@@ -130,9 +152,9 @@ namespace AppBanHang
             tongThanhToan.Text = "Tổng thanh toán";
             tongThanhToan.Font = new Font("Arial", 14, FontStyle.Bold);
             tongThanhToan.AutoSize = true;
-            tongThanhToan.Location = new Point(500,6);
+            tongThanhToan.Location = new Point(500, 6);
 
-            
+
             Summary.Controls.Add(tongThanhToan);
 
             this.Controls.Add(Summary);

@@ -25,6 +25,9 @@ namespace AppBanHang
         public string ID;
         public Int64 price;
         public string Tensp;
+        public Label back;
+        public PictureBox fav;
+        public bool isFavorite = false;
         public ProductDetail(string id)
         {
             this.Location = new Point(98, 152);
@@ -42,7 +45,7 @@ namespace AppBanHang
             productName.AutoSize = true;
             Bitmap bm1 = (Bitmap)NHACCU.ResourceManager.GetObject(id);
 
-            Label back = new Label();
+            back = new Label();
             back.Location = new Point(650, 0);
             back.AutoSize = true;
             back.Text = "Quay lại";
@@ -115,11 +118,21 @@ namespace AppBanHang
             addToCart.Size = new Size(185, 45);
             addToCart.Location = new Point(100 ,8);
 
+            fav = new PictureBox();
+            fav.BackgroundImage = Image.FromFile("../../assets/icon/heartUnchecked.png");
+            fav.BackgroundImageLayout = ImageLayout.Stretch;
+            fav.Location = new Point(250, 8);
+            fav.Size = new Size(45, 45);
+            fav.BackColor = Color.Transparent;
+            fav.Cursor = Cursors.Hand;
+            fav.Click += new EventHandler(fav_Clicked);
+
             paymentZone.Controls.Add(amountNum);
             paymentZone.Controls.Add(amountLabel);
             paymentZone.Controls.Add(minusButton);  
             paymentZone.Controls.Add(plusButton);
             paymentZone.Controls.Add(addToCart);
+            //paymentZone.Controls.Add(fav);
 
             this.Controls.Add(back);
             this.Controls.Add(productName);
@@ -150,6 +163,18 @@ namespace AppBanHang
             dataTable = provider.ExecuteQuery(query);
             //dataGridView1.DataSource = provider.ExecuteQuery(query);
         }
-
+        private void fav_Clicked(object sender, EventArgs e)
+        {
+            if (isFavorite == false)
+            {
+                isFavorite = true;
+                fav.BackgroundImage = Image.FromFile("../../assets/icon/heartChecked.png");
+            }
+            else 
+            {
+                isFavorite = false;
+                fav.BackgroundImage = Image.FromFile("../../assets/icon/heartUnchecked.png");
+            }
+        }
     }
 }
